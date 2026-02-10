@@ -1,0 +1,28 @@
+Security Group Verification – Week 2 SSH Lab
+
+Inbound Rules:
+- SSH (22): Allowed only from 94.139.28.74/32
+- HTTP (80): Allowed from 0.0.0.0/0
+
+Test Results:
+
+1. SSH Access Test
+Command: ssh bootcamp-web
+Result: SUCCESS
+Description: SSH connection allowed only from authorized IP.
+
+2. HTTP Access Test
+Command: curl -I http://98.92.65.8
+Result: SUCCESS (HTTP 200 OK)
+Description: HTTP accessible from anywhere.
+
+3. ICMP Test
+Command: ping 98.92.65.8
+Result: BLOCKED
+Description: ICMP requests blocked by security group.
+
+4. Blocked Port Test
+Command: nc -zv 98.92.65.8 3306
+Result: BLOCKED
+Description: MySQL port not allowed in security group (expected).
+

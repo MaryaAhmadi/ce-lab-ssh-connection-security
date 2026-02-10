@@ -1,0 +1,54 @@
+
+
+1- Create a test file locally
+Command:
+echo 'Hello from my computer!' > test-file.txt
+
+2- Copy test file to EC2 instance
+Command:
+scp test-file.txt bootcamp-web:~/
+Result:
+test-file.txt                                 100%   24     0.2KB/s   00:00    
+
+3- Verify test file on EC2
+Command:
+ssh bootcamp-web "cat ~/test-file.txt"
+Result:
+Hello from my computer!
+
+4- Copy a file from EC2 instance to local machine
+Command:
+scp bootcamp-web:~/instance-info.txt ./downloaded-info.txt
+Result:
+instance-info.txt                             100% 2792    12.1KB/s   00:00    
+
+5- Verify copied file locally
+Command:
+cat downloaded-info.txt
+Result:
+=== System Information ===
+NAME="Amazon Linux"
+VERSION="2023"
+...
+inet6 fe80::14ff:c8ff:feaa:6c95/64 scope link proto kernel_ll 
+   valid_lft forever preferred_lft forever
+
+6- Copy a local directory to EC2
+Commands:
+mkdir my-website
+echo "<h1>My Site</h1>" > my-website/index.html
+echo "body { background: lightblue; }" > my-website/style.css
+scp -r my-website bootcamp-web:~/
+Result:
+index.html                                    100%   17     0.1KB/s   00:00    
+style.css                                     100%   32     0.2KB/s   00:00    
+
+7- Verify directory on EC2
+Command:
+ssh bootcamp-web "ls -la ~/my-website/"
+Result:
+total 8
+drwxr-xr-x. 2 ec2-user ec2-user  41 Feb 10 00:25 .
+drwx------. 5 ec2-user ec2-user 174 Feb 10 00:25 ..
+-rw-r--r--. 1 ec2-user ec2-user  17 Feb 10 00:25 index.html
+-rw-r--r--. 1 ec2-user ec2-user  32 Feb 10 00:25 style.css

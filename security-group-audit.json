@@ -1,0 +1,79 @@
+{
+    "SecurityGroups": [
+        {
+            "GroupId": "sg-0d6935a76d25d8c47",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": 80,
+                    "ToPort": 80,
+                    "UserIdGroupPairs": [],
+                    "IpRanges": [
+                        {
+                            "Description": "Public HTTP access",
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                },
+                {
+                    "IpProtocol": "-1",
+                    "UserIdGroupPairs": [],
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Environment",
+                    "Value": "Development"
+                },
+                {
+                    "Key": "Name",
+                    "Value": "week2-web-server-sg"
+                }
+            ],
+            "VpcId": "vpc-090d5cc63b383b2e1",
+            "SecurityGroupArn": "arn:aws:ec2:us-east-1:202145728564:security-group/sg-0d6935a76d25d8c47",
+            "OwnerId": "202145728564",
+            "GroupName": "week2-web-server-sg",
+            "Description": "Security group for Week 2 lab - allows SSH and HTTP",
+            "IpPermissions": [
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": 80,
+                    "ToPort": 80,
+                    "UserIdGroupPairs": [],
+                    "IpRanges": [
+                        {
+                            "Description": "Public HTTP access",
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                },
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": 22,
+                    "ToPort": 22,
+                    "UserIdGroupPairs": [],
+                    "IpRanges": [
+                        {
+                            "Description": "SSH from my IP",
+                            "CidrIp": "94.139.28.74/32"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                }
+            ]
+        }
+    ]
+}

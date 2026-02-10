@@ -443,13 +443,30 @@ Update your GitHub repository `ce-lab-launch-ec2-instance` or create `ce-lab-ssh
 Modify security group to only allow necessary outbound:
 - HTTPS (443) for updates
 - HTTP (80) for package downloads
-- Document what breaks and why
+- Document what breaks and why:
+
+When we restricted outbound traffic to only HTTP (80) and HTTPS (443), some connections broke. Any attempt to reach other ports or services on the internet, like MySQL (3306) or non-standard update servers, failed. This happened because the security group blocks all traffic that isn’t explicitly allowed. While it can cause certain operations to fail, this restriction improves security by preventing unnecessary or potentially risky outbound connections
+
+
 
 ### Challenge 2: Multiple Security Groups
 
 - Create a second security group for application-specific rules
 - Attach both to your instance
-- Document how multiple SGs work together
+- Document how multiple SGs work together>
+
+| Security Group      | Type / Protocol | Port | Source / Destination | Purpose          | Risk Level |
+| ------------------- | --------------- | ---- | -------------------- | ---------------- | ---------- |
+| week2-web-server-sg | TCP             | 22   | YOUR_IP/32           | SSH admin access | Low        |
+| week2-web-server-sg | TCP             | 80   | 0.0.0.0/0            | HTTP web traffic | Low        |
+| app-sg              | TCP             | 8080 | 0.0.0.0/0            | App HTTP service | Medium     |
+| app-sg              | TCP             | 3306 | 10.0.0.0/16          | MySQL database   | Medium     |
+
+
+
+We have two security groups attached to the instance, each handling different types of traffic. The week2-web-server-sg allows SSH (port 22) from my specific IP for secure admin access and HTTP (port 80) from anywhere for public web traffic. The app-sg handles application-specific rules, opening port 8080 for app HTTP services accessible publicly, and port 3306 for MySQL database access restricted to internal network IPs. AWS combines the rules from both security groups, so any port allowed in either group is accessible, ensuring proper separation of concerns while maintaining functionality and security.
+
+
 
 ### Challenge 3: Connection Multiplexing
 
@@ -796,12 +813,12 @@ In tomorrow's lab, you'll:
 
 ## Time Tracking
 
-- [ ] SSH config setup: _____ minutes
-- [ ] Security testing: _____ minutes
-- [ ] SCP practice: _____ minutes
-- [ ] Documentation: _____ minutes
+- [ ] SSH config setup: 7 minutes
+- [ ] Security testing: 10 minutes
+- [ ] SCP practice: 40 minutes
+- [ ] Documentation: 20 minutes
 
-**Total time:** _____ minutes
+**Total time:** 77 minutes
 
 ---
 
